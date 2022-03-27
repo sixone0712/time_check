@@ -1,0 +1,17 @@
+http://10.1.36.3:82/my/account.json?key=faabcc43fd80bcf306269c798f9b60ce80d60539
+
+{
+    "user": {
+        "id": 30,
+        "login": "chpark",
+        "admin": false,
+        "firstname": "박찬호",
+        "lastname": "IE시스템설계담당",
+        "mail": "chpark@canon-bs.co.kr",
+        "created_on": "2018-01-09T14:01:36Z",
+        "last_login_on": "2022-03-16T01:17:00Z",
+        "api_key": "faabcc43fd80bcf306269c798f9b60ce80d60539"
+    }
+}
+
+
