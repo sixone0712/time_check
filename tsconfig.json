@@ -18,10 +18,12 @@
     "baseUrl": ".",
     "paths": {
       "@src/*": ["src/*"],
-      "@server/*": ["server/*"],
       "@common/*": ["common/*"]
-    }
+    },
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", ".next", "out"]
+  "exclude": ["node_modules", ".next", "out", "dist"]
 }

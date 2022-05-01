@@ -38,4 +38,13 @@ export interface HrmInputData {
   start: string;
   end: string;
   spentOnHrm: number;
+  etc: string;
 }
+
+export interface TableExtend {
+  editData: (rowIndex: any, columnId: any, value: any) => void;
+}
+
+export type EditMultipleHrmInputData = {
+  [key in keyof HrmInputData]: any;
+};

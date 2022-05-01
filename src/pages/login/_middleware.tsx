@@ -2,22 +2,20 @@ import { getToken } from 'next-auth/jwt';
 import { NextFetchEvent, NextRequest, NextResponse } from 'next/server';
 
 export async function middleware(req: NextRequest, ev: NextFetchEvent) {
-  console.log('==middleware====session============');
   try {
     const session = (await getToken({
       req: req as any,
-      secret: 'chpark',
+      secret: process.env.NEXTAUTH_SECRET,
     })) as any;
-    console.log(session);
-    console.log(req.page);
 
-    console.log('session?.name', session?.name ?? 'no!!!');
-    if (!(session?.name ?? false)) {
-      return NextResponse.redirect(new URL('/signin', req.url));
+    if (session?.name ?? false) {
+      return NextResponse.redirect(new URL('/time', req.url));
     }
     return NextResponse.next();
   } catch (e) {
     console.error(e);
     return NextResponse.redirect(new URL('/signin', req.url));
   }
+
+  return NextResponse.next();
 }

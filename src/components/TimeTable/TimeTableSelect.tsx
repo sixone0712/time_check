@@ -4,7 +4,7 @@ import { DatePicker, LocalizationProvider } from '@mui/lab';
 import DateAdapter from '@mui/lab/AdapterDayjs';
 import { IconButton, TextField } from '@mui/material';
 import dayjs from 'dayjs';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 export type TimeTableSelectProps = {
   date: Date | null;
@@ -15,17 +15,17 @@ export default function TimeTableSelect({
   date,
   setDate,
 }: TimeTableSelectProps): JSX.Element {
-  const addMonth = () => {
+  const addMonth = useCallback(() => {
     if (date) {
       setDate((prev) => dayjs(prev).add(1, 'month').toDate());
     }
-  };
+  }, [date]);
 
-  const subtractMonth = () => {
+  const subtractMonth = useCallback(() => {
     if (date) {
       setDate((prev) => dayjs(prev).subtract(1, 'month').toDate());
     }
-  };
+  }, [date]);
 
   return (
     <div>

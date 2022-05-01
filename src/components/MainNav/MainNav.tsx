@@ -11,7 +11,8 @@ import {
 } from '@mui/material';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useCallback } from 'react';
+import { signOut } from 'next-auth/react';
 
 type MainNavProps = {
   appProps: any;
@@ -29,9 +30,9 @@ export const MainNav = ({ appProps }: MainNavProps) => {
     setAnchorEl(null);
   };
 
-  // if (status === 'unauthenticated' && router.route !== '/login') {
-  //   router.push('/login');
-  // }
+  const handleSignOut = useCallback(() => {
+    signOut({ callbackUrl: '/signin' });
+  }, []);
 
   return (
     <div
@@ -57,32 +58,45 @@ export const MainNav = ({ appProps }: MainNavProps) => {
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
             css={css`
               font-weight: bold;
+              display: flex;
+              width: 9rem;
             `}
           >
-            LOGO
+            Time Check
           </Typography>
 
-          <div>
-            <Button
-              css={css`
-                font-weight: bold;
-                color: black;
-              `}
-              onClick={() => router.push('/login')}
-            >
-              SIGN IN
-            </Button>
-            <Button
-              css={css`
-                font-weight: bold;
-                color: black;
-              `}
-              onClick={() => router.push('/login')}
-            >
-              SIGN OUT
-            </Button>
+          <div
+            css={css`
+              width: 100%;
+              display: flex;
+              flex-direction: row;
+              justify-content: flex-end;
+            `}
+          >
+            {status !== 'authenticated' && (
+              <div>
+                <Button
+                  css={css`
+                    font-weight: bold;
+                    color: black;
+                  `}
+                  onClick={() => router.push('/signin')}
+                >
+                  SIGN IN
+                </Button>
+                <Button
+                  css={css`
+                    font-weight: bold;
+                    color: black;
+                  `}
+                  onClick={() => router.push('/signup')}
+                >
+                  SIGN UP
+                </Button>
+              </div>
+            )}
 
-            {false && (
+            {status === 'authenticated' && (
               <div>
                 <IconButton
                   size="large"
@@ -109,8 +123,8 @@ export const MainNav = ({ appProps }: MainNavProps) => {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
                   <MenuItem onClick={handleClose}>My account</MenuItem>
+                  <MenuItem onClick={handleSignOut}>Log Out</MenuItem>
                 </Menu>
               </div>
             )}
@@ -121,8 +135,10 @@ export const MainNav = ({ appProps }: MainNavProps) => {
         // css={tw`container border-solid max-width[1440px] height[calc(100vh-48px)]`}
         css={css`
           border: 1px solid black;
-          width: 1440px;
+          width: 90rem; //1440px;
           min-height: calc(100vh - 48px);
+          padding-left: 3rem;
+          padding-right: 3rem;
         `}
       >
         {appProps}

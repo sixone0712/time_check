@@ -6,4 +6,5 @@ export interface TimeItem {
   spentOnHrm: number;
   spentOnRedmine: number;
   spentOnTimeSheet: number;
+  etc: string;
 }

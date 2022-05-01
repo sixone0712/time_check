@@ -19,17 +19,18 @@ export default NextAuth({
       credentials: {},
       async authorize(credentials, req) {
         // Add logic here to look up the user from the credentials supplied
-        console.log('credentials');
+        // console.log('credentials');
 
         const { id } = credentials as { id: string | null };
 
-        console.log('id', id);
+        // console.log('id', id);
+        // console.log("process.env.SERVER_API_URL", process.env.SERVER_API_URL)
 
         try {
           const { data } = await axios.get(
-            `http://localhost:3001/api/auth/login?id=${id}`
+            `${process.env.SERVER_API_URL}/user/${id}`
           );
-          console.log('data', data);
+          // console.log('data', data);
 
           return {
             name: {
@@ -68,6 +69,14 @@ export default NextAuth({
     // Note: This option is ignored if using JSON Web Tokens
     // updateAge: 24 * 60 * 60, // 24 hours
   },
+  jwt: {
+    // The maximum age of the NextAuth.js issued JWT in seconds.
+    // Defaults to `session.maxAge`.
+    // maxAge: 60 * 60 * 24 * 30,
+    // You can define your own encode/decode functions for signing and encryption
+    // async encode() {},
+    // async decode() {},
+  },
 
   // JSON Web tokens are only used for sessions if the `strategy: 'jwt'` session
   // option is set - or by default if no database is specified.
@@ -86,13 +95,13 @@ export default NextAuth({
   // https://next-auth.js.org/configuration/callbacks
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      console.log('=====================');
-      console.log('signIn');
-      console.log('user', user);
-      console.log('account', account);
-      console.log('profile', profile);
-      console.log('email', email);
-      console.log('credentials', credentials);
+      // console.log('=====================');
+      // console.log('signIn');
+      // console.log('user', user);
+      // console.log('account', account);
+      // console.log('profile', profile);
+      // console.log('email', email);
+      // console.log('credentials', credentials);
       return true;
     },
     // async redirect({ url, baseUrl }) { return baseUrl },
@@ -102,6 +111,7 @@ export default NextAuth({
       console.log('token', token);
       console.log('user', user);
 
+      return session;
       // const { data } = await axios.get(
       //   'http://localhost:3001/api/auth/login?id=20120050'
       // );
@@ -115,16 +125,14 @@ export default NextAuth({
       return session;
     },
     async jwt({ token, user, account, profile, isNewUser }) {
+      console.log('====token=================');
       // Persist the OAuth access_token to the token right after signin
       // if (account) {
       //   token.accessToken = account.access_token
       // }
-      console.log('====token=================');
-      console.log('token', token);
-      console.log('user', user);
-      console.log('account', account);
-      console.log('profile', profile);
-      console.log('isNewUser', isNewUser);
+      // console.log('account', account);
+      // console.log('profile', profile);
+      // console.log('isNewUser', isNewUser);
 
       return token;
     },

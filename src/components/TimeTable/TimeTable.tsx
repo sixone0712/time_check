@@ -1,7 +1,8 @@
 import { css } from '@emotion/react';
 import { useEffect, useState } from 'react';
 import { V_SPACE } from '../Common/Space';
-import TimeTableHrm from './TimeTableHrm';
+import TimeTableHrmAdd from './TimeTableHrmAdd';
+import TimeTableHrmEdit from './TimeTableHrmEdit';
 import TimeTableSelect from './TimeTableSelect';
 import TimeTableView from './TimeTableView';
 
@@ -23,7 +24,10 @@ export default function TimeTable({}: TimeTableProps): JSX.Element {
     <div css={style}>
       <TimeTableSelect date={curDate} setDate={setCurDate} />
       <V_SPACE />
-      <TimeTableHrm date={curDate} setDate={setCurDate} />
+      <div className="table-button">
+        <TimeTableHrmAdd date={curDate} setDate={setCurDate} />
+        <TimeTableHrmEdit date={curDate} setDate={setCurDate} />
+      </div>
       <TimeTableView date={curDate} setDate={setCurDate} />
     </div>
   );
@@ -36,10 +40,12 @@ const style = css`
   align-items: center;
   margin-top: 2.5rem;
 
-  .header-section {
-    width: 71rem;
+  .table-button {
+    display: flex;
+    width: 100%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    margin-bottom: 0.5rem;
   }
 `;

@@ -1,5 +1,5 @@
-import Login from '@src/components/Login';
+import SignIn from '@src/components/SignIn';
 
-export default function login(): JSX.Element {
-  return <Login />;
+export default function signin(): JSX.Element {
+  return <SignIn />;
 }

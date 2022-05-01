@@ -1,0 +1,6 @@
+### 유저 리스트
+GET http://localhost:3000/api/server/user HTTP/1.1
+
+
+### 유저 정보 아이디
+GET http://localhost:3000/api/server/user/20120050 HTTP/1.1

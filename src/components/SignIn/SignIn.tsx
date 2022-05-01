@@ -10,29 +10,15 @@ import {
 import { useRouter } from 'next/router';
 import { ChangeEvent, FormEventHandler, useState } from 'react';
 import { useCookies } from 'react-cookie';
-import { useLogin } from '@src/libs/query/hooks';
+import { useGetSignIn } from '@src/libs/query/hooks';
 import { getSession, signIn, signOut, useSession } from 'next-auth/react';
-export default function Login() {
+export default function SignIn() {
   const router = useRouter();
   const [id, setId] = useState<string>('');
-  const [cookies, setCookie] = useCookies(['loginId']);
 
   const session = useSession();
 
   console.log('session', session);
-
-  const { refetch } = useLogin(id, {
-    enabled: false,
-    onSuccess: (data) => {
-      setCookie('loginId', data.id, {
-        maxAge: 2147483647,
-      });
-      router.replace('/time');
-    },
-    onError: (err) => {
-      console.error(err);
-    },
-  });
 
   const onChangeId = (e: ChangeEvent<HTMLInputElement>) => {
     setId(e.target.value);
@@ -43,13 +29,12 @@ export default function Login() {
     setId('');
 
     try {
-      //await refetch();
       const result = await signIn('credentials', {
         redirect: false,
         id,
       });
       console.log('result', result);
-      // router.replace('/time');
+      router.replace('/time');
     } catch (e) {
       console.log('error');
       console.error(e);
